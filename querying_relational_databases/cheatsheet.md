@@ -47,8 +47,8 @@ Examples:
 
 ```
 SELECT users.full_name, sales.amount, products.name FROM sales 
-        INNER JOIN users ON users.id = sales.user_id
-        INNER JOIN products ON products.id = sales.product_id;
+        INNER JOIN users ON sales.user_id = users.id 
+        INNER JOIN products ON sales.product_id = products.id;
 ```
 
 ### OUTER JOINs
@@ -208,5 +208,5 @@ SELECT name, email FROM users WHERE id IN (SELECT user_id FROM sales WHERE SUM(s
 
 SELECT name, email, total FROM users 
     INNER JOIN (SELECT user_id, SUM(saleAmount) AS total FROM sales WHERE total > 1000 GROUP BY user_id) AS ultimate_customers
-    ON ultimate_customers.user_id = users.id;
+    ON users.id = ultimate_customers.user_id;
 ```
